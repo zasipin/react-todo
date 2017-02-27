@@ -1,5 +1,7 @@
 import React from 'react';
 import TodoList from 'TodoList';
+import AddTodo from 'AddTodo';
+
 export default class TodoApp extends React.Component{
   constructor(){
     super();
@@ -12,12 +14,17 @@ export default class TodoApp extends React.Component{
     }
   }
 
+  handleAddButton(text){
+    console.log(text);
+  }
+
   render() {
     var {todos} = this.state;
     return (
       <div>
         TodoApp component
         <TodoList todos={todos} />
+        <AddTodo onAddButtonClick={(text) => this.handleAddButton(text)} />
       </div>
     );
   }
