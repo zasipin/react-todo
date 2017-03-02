@@ -13,7 +13,7 @@ import React from 'react';
 
 export default function Todo ({id, text}){
   return (
-        <div>
+        <div className="todo">
           {id}. {text}
         </div>
       )

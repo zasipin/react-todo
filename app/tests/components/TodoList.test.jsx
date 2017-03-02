@@ -15,7 +15,7 @@ describe('TodoList', () => {
    it('should render one Todo for each todo item', () => {
      var todos = [{id:1, text:"t1"}, {id:2, text:"t2"}];
      var todoList = TestUtils.renderIntoDocument(<TodoList todos={todos}/>);
-     var todosComponents = TestUtils.scryRenderedComponentsWithType(todoList, Todo);
+     var todosComponents = TestUtils.scryRenderedDOMComponentsWithClass(todoList, 'todo');
 
       expect(todosComponents.length).toBe(todos.length);
    });
