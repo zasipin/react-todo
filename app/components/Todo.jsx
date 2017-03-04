@@ -1,20 +1,28 @@
 import React from 'react';
 
-// export default class Todo extends React.Component {
-//   render() {
-//     var {id, text} = this.props;
-//     return (
-//       <div>
-//         {id}. {text}
-//       </div>
-//     )
-//   }
-// }
+export default class Todo extends React.Component {
+  render() {
+    var {id, text, completed} = this.props;
+    return (
+      <div className="todo" onClick={()=>{
+         this.props.onToggle(id);
+         }}>
 
-export default function Todo ({id, text}){
-  return (
-        <div className="todo">
-          {id}. {text}
-        </div>
-      )
+         <input type="checkbox" checked={completed}/>
+         {text}
+       
+      </div>
+    )
+  }
 }
+
+// export default function Todo ({id, text, completed}){
+//   return (
+//         <div className="todo" onClick={()=>{
+//
+//           }}>
+//           <input type="checkbox" checked={completed}/>
+//           {text}
+//         </div>
+//       )
+// }
