@@ -43,7 +43,7 @@ describe('TodoApi', () => {
 
       var actualTodos = TodoApi.getTodos();
 
-      expect(actualTodos).toEqual(todos);
+      expect(actualTodos).toEqual(todos); 
     });
   });
 });
