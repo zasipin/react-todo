@@ -1,4 +1,5 @@
 import expect from 'expect';
+var df =  require('deep-freeze-strict');
 
 import * as reducers from 'reducers';
 
@@ -10,19 +11,19 @@ describe('Reducers', () => {
                 searchText: 'Some search text'
             }
 
-            var res = reducers.searchTextReducer('', action);
+            var res = reducers.searchTextReducer(df(''), df(action));
 
             expect(res).toEqual(action.searchText);
         });
     });
 
     describe('showCompletedReducer', () => {
-        it('should return oppsite meaning on action ЕщппдуShowCompleted', () => {
+        it('should return oppsite meaning on action ToggleShowCompleted', () => {
             var action = {
                 type: 'TOGGLE_SHOW_COMPLETED',
             }
 
-            var res = reducers.showCompletedReducer(false, action);
+            var res = reducers.showCompletedReducer(df(false), df(action));
             expect(res).toEqual(true);
 
             var res = reducers.showCompletedReducer(true, action);
