@@ -1,4 +1,5 @@
 import expect from 'expect';
+
 var df =  require('deep-freeze-strict');
 
 import * as reducers from 'reducers';
@@ -26,8 +27,61 @@ describe('Reducers', () => {
             var res = reducers.showCompletedReducer(df(false), df(action));
             expect(res).toEqual(true);
 
-            var res = reducers.showCompletedReducer(true, action);
+            var res = reducers.showCompletedReducer(df(true), df(action));
             expect(res).toEqual(false);
         });
     });
+
+    describe('todosReducer', ()=>{
+        it('should add new todo', ()=>{
+            var action = {
+                type: 'ADD_TODO',
+                text: 'walk the dog'
+            }
+
+            var res = reducers.todosReducer(df([]), df(action));
+
+            expect(res.length).toEqual(1);
+            expect(res[0].text).toEqual(action.text);
+        });
+        
+        it('should toggle todo', ()=>{
+            var todos = [
+            {
+                id: 1, //uuid(),
+                text: '1',
+                completed: false,
+                createdAt: 123, //moment().unix(),
+                completedAt: undefined
+            }, 
+            {
+                id: 2, //uuid(),
+                text: '123',
+                completed: true,
+                createdAt: 123,//moment().unix(),
+                completedAt: 123
+            }];
+            
+            var action = {
+                type: 'TOGGLE_TODO',
+                id: todos[0].id
+            }
+            var res = reducers.todosReducer(df(todos), df(action));
+
+            expect(res[0].completed).toEqual(!todos[0].completed);
+            expect(res[0].completedAt).toNotBe(undefined);
+            
+            var action2 = {
+                type: 'TOGGLE_TODO',
+                id: todos[1].id
+            }
+            var res = reducers.todosReducer(df(todos), df(action2));
+            expect(res[0].completed).toEqual(todos[0].completed);
+            expect(res[1].completed).toEqual(!todos[1].completed);
+            expect(res[1].completedAt).toEqual(undefined);
+
+        });
+
+    });
+
 });
