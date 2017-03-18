@@ -3,6 +3,19 @@ var ReactDOM = require('react-dom');
 var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 
 import TodoApp from 'TodoApp';
+
+import * as actions from 'actions';
+import {configure} from 'configureStore';
+var store = configure();
+
+store.subscribe(()=>{
+  console.log('New state', store.getState());
+});
+
+store.dispatch(actions.addTodo('Walk'));
+store.dispatch(actions.setSearchText('ssser'));
+store.dispatch(actions.toggleShowCompleted());
+
 // Load foundation
 $(document).foundation();
 
