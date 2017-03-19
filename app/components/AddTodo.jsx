@@ -1,12 +1,19 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import * as actions from 'actions';
 
-export default class AddTodo extends React.Component{
+export class AddTodo extends React.Component{
 
   onSubmitHandler(e){
     e.preventDefault();
-    if (this.refs.todoText.value) {
-      this.props.onAddButtonClick(this.refs.todoText.value);
+    
+    var {dispatch} = this.props;
+    var todoText = this.refs.todoText.value;
+
+    if (todoText.length > 0) {
       this.refs.todoText.value = "";
+      // this.props.onAddButtonClick(this.refs.todoText.value);
+      dispatch(actions.addTodo(todoText));      
     } else {
       this.refs.todoText.focus();
     }
@@ -27,3 +34,5 @@ export default class AddTodo extends React.Component{
 AddTodo.propTypes = {
   onAddButtonClick: React.PropTypes.func.isRequired
 }
+
+export default connect()(AddTodo);
