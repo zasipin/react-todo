@@ -32,7 +32,7 @@ export class AddTodo extends React.Component{
 }
 
 AddTodo.propTypes = {
-  onAddButtonClick: React.PropTypes.func.isRequired
+  // onAddButtonClick: React.PropTypes.func.isRequired
 }
 
 export default connect()(AddTodo);

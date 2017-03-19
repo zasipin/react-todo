@@ -67,7 +67,8 @@ export default class TodoApp extends React.Component{
             <div className="container">
               <TodoSearch onSearch={(showCompleted, searchText) => this.handleSearch(showCompleted, searchText)} />
               <TodoList/>
-              <AddTodo onAddButtonClick={(text) => this.handleAddTodo(text)} />
+              {/*<AddTodo onAddButtonClick={(text) => this.handleAddTodo(text)} />*/}
+                <AddTodo />
             </div>
           </div>
         </div>
