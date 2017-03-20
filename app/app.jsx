@@ -13,9 +13,9 @@ store.subscribe(()=>{
   console.log('New state', store.getState());
 });
 
-store.dispatch(actions.addTodo('Walk'));
-store.dispatch(actions.setSearchText('ssser'));
-store.dispatch(actions.toggleShowCompleted());
+// store.dispatch(actions.addTodo('Walk'));
+// store.dispatch(actions.setSearchText('ssser'));
+// store.dispatch(actions.toggleShowCompleted());
 
 // Load foundation
 $(document).foundation();
