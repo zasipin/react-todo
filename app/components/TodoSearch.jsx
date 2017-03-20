@@ -17,7 +17,7 @@ export class TodoSearch extends React.Component {
         <div>
           <input type="text" ref="searchText" placeholder="Search todos"
             value={searchText} onChange={()=>{
-              {/*this.handleSearch()*/}
+              
 
               var searchText = this.refs.searchText.value;
               dispatch(actions.setSearchText(searchText));
@@ -26,7 +26,7 @@ export class TodoSearch extends React.Component {
         <div>
           <label>
             <input type="checkbox" ref="showCompleted" checked={showCompleted} onChange={() => {
-                {/*this.handleSearch()*/}
+                
 
                 dispatch(actions.toggleShowCompleted());
                 }}/>

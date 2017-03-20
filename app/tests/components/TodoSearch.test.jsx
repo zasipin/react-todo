@@ -29,14 +29,15 @@ describe('TodoSearch component', ()=>{
 
     it('should dispatch TOGGLE_SHOW_COMPLETED when checkbox checked', ()=>{
         var searchText = 'Tree';
-        var spy = expect.createSpy();
+        
         var action = {
-            type: 'TOGGLE_SHOW_COMPLETED'
-        }
+        type: 'TOGGLE_SHOW_COMPLETED'
+        };
+        var spy = expect.createSpy();
         var todoSearch = TestUtils.renderIntoDocument(<TodoSearch dispatch={spy}/>);
 
         todoSearch.refs.showCompleted.checked = true;
-        TestUtils.Simulate.change(todoSearch.refs.searchText);
+        TestUtils.Simulate.change(todoSearch.refs.showCompleted);
 
         expect(spy).toHaveBeenCalledWith(action);
 
