@@ -1,3 +1,6 @@
+import firebase, { firebaseRef } from 'app/firebase';
+import moment from 'moment';
+
 export function setSearchText(searchText) {
     return {
         type: 'SET_SEARCH_TEXT',
@@ -5,10 +8,39 @@ export function setSearchText(searchText) {
     }
 }
 
-export function addTodo(text) {
+export function addTodo(todo) {
     return {
         type: 'ADD_TODO',
-        text
+        todo
+    }
+}
+
+// thunk middleware lets us return functions from action generators
+// export function startAddTodo(text) {
+//     return (dispatch, getState) => {
+
+//     }
+// }
+
+export function startAddTodo(text) {
+    return (dispatch, getState) => {
+        var todo = {
+                    // id: uuid(),
+                    text,
+                    completed: false,
+                    createdAt: moment().unix(),
+                    completedAt: null
+                };
+         // store new todo to db       
+         var todoRef = firebaseRef.child('todos').push(todo);
+
+         // rerender component
+         return todoRef.then(() => {
+             dispatch(addTodo({
+                 ...todo,
+                 id: todoRef.key
+             }));
+         })       
     }
 }
 
