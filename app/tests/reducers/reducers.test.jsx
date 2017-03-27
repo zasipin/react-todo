@@ -68,23 +68,32 @@ describe('Reducers', () => {
                 completedAt: 123
             }];
             
+            var updates = {
+                completed: false,
+                completedAt: null
+            }
+
             var action = {
-                type: 'TOGGLE_TODO',
-                id: todos[0].id
+                type: 'UPDATE_TODO',
+                id: todos[0].id,
+                updates
             }
             var res = reducers.todosReducer(df(todos), df(action));
 
-            expect(res[0].completed).toEqual(!todos[0].completed);
-            expect(res[0].completedAt).toNotBe(undefined);
-            
-            var action2 = {
-                type: 'TOGGLE_TODO',
-                id: todos[1].id
-            }
-            var res = reducers.todosReducer(df(todos), df(action2));
-            expect(res[0].completed).toEqual(todos[0].completed);
-            expect(res[1].completed).toEqual(!todos[1].completed);
-            expect(res[1].completedAt).toEqual(undefined);
+            expect(res[0].completed).toEqual(updates.completed);
+            // expect(res[0].completedAt).toNotBe(undefined);
+            expect(res[0].completedAt).toEqual(updates.completedAt);
+            expect(res[0].text).toEqual(todos[0].text);
+
+            // var action2 = {
+            //     type: 'UPDATE_TODO',
+            //     id: todos[1].id,
+            //     updates
+            // }
+            // var res = reducers.todosReducer(df(todos), df(action2));
+            // expect(res[0].completed).toEqual(todos[0].completed);
+            // expect(res[1].completed).toEqual(!todos[1].completed);
+            // expect(res[1].completedAt).toEqual(undefined);
 
         });
 

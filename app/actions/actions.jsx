@@ -73,7 +73,7 @@ export function startToggleTodo(id, completed) {
     };
 }
 
-// toggleTodo
+// updateTodo
 export function updateTodo(id, updates) {
     return {
         type: 'UPDATE_TODO',

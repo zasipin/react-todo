@@ -3,6 +3,8 @@ import * as actions from 'actions';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
+import firebase, {firebaseRef} from 'app/firebase/';
+
 var createMockStore = configureMockStore([thunk]);
 
 describe('Actions', function(){
@@ -61,15 +63,56 @@ describe('Actions', function(){
         expect(res).toEqual(action);
     });
 
-        it('should generate toggle todo action', () => {
+    it('should generate UPDATE_TODO action', () => {
         var action = {
-            type: 'TOGGLE_TODO',
-            id: 12
+            type: 'UPDATE_TODO',
+            id: 12,
+            updates: {completed: false}
         }
 
-        var res = actions.toggleTodo(action.id);
+        var res = actions.updateTodo(action.id, action.updates);
 
         expect(res).toEqual(action);
+    });
+
+    describe('Tests with firebase todos', () => {
+        var testTodoRef;
+
+        beforeEach((done) => {
+            // insert data to firebase
+            testTodoRef = firebaseRef.child('todos').push();
+            testTodoRef.set({
+                text: 'Something to do',
+                completed: false,
+                createdAt: 123
+            }).then(() => done());
+        });
+
+        afterEach((done) => {
+            // remove data from firebase after test
+            testTodoRef.remove().then(() => done());
+        });
+
+        it('should toggle todo and dispatch UPDATE_TODO action', (done) => {
+            const store = createMockStore({});
+            const action = actions.startToggleTodo(testTodoRef.key, true);
+
+            store.dispatch(action).then(() => {
+                const mockActions = store.getActions();
+                expect(mockActions[0]).toInclude({
+                    type:'UPDATE_TODO',
+                    id: testTodoRef.key
+                });
+
+                expect(mockActions[0].updates).toInclude({
+                    completed: true                    
+                });
+
+                expect(mockActions[0].updates.completedAt).toExist();
+
+                done();
+            }).catch(() => done());
+        });
     });
 
 });
