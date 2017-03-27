@@ -58,3 +58,26 @@ export function toggleTodo(id) {
         id
     }
 }
+
+export function startToggleTodo(id, completed) {
+    return (dispatch, getState) => {
+        var todoRef = firebaseRef.child(`todos/${id}`);
+        var updates = {
+            completed,
+            completedAt: completed ? moment().unix() : null 
+        }
+
+        return todoRef.update(updates).then(() => {
+            dispatch(updateTodo(id, updates));
+        });
+    };
+}
+
+// toggleTodo
+export function updateTodo(id, updates) {
+    return {
+        type: 'UPDATE_TODO',
+        id,
+        updates
+    }
+}
