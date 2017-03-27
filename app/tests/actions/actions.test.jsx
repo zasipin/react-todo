@@ -16,10 +16,16 @@ describe('Actions', function(){
     it('should generate add todo action', () => {
         var action = {
             type: 'ADD_TODO',
-            text: 'some todo text'
+            todo: {
+                id: 1, //uuid(),
+                text: '1',
+                completed: false,
+                createdAt: 123, //moment().unix(),
+                completedAt: undefined   
+            }
         }
 
-        var res = actions.addTodo(action.text);
+        var res = actions.addTodo(action.todo);
 
         expect(res).toEqual(action);
     });
