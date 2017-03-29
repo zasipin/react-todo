@@ -81,3 +81,28 @@ export function updateTodo(id, updates) {
         updates
     }
 }
+
+export function addTodos(todos) {
+    return {
+        type: 'ADD_TODOS',
+        todos
+    }
+}
+
+export function startAddTodos(){
+    return (dispatch, getState) => {
+        var todosRef = firebaseRef.child('todos');
+        return todosRef.once('value').then((snapshot) => {
+            var todosReturned = snapshot.val() || {};
+            var ids = Object.keys(todosReturned);
+            var todos = ids.map((item) => {
+                return {
+                    id: item,
+                    ...todosReturned[item]
+                }
+            });
+            // console.log("todos: ", todos);
+            dispatch(addTodos(todos));
+        });
+    }
+}

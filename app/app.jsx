@@ -4,6 +4,7 @@ import {Provider} from 'react-redux';
 var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 
 import TodoApp from 'TodoApp';
+import TodoApi from 'TodoApi';
 
 import * as actions from 'actions';
 import {configure} from 'configureStore';
@@ -12,13 +13,18 @@ import {configure} from 'configureStore';
 
 var store = configure();
 
-store.subscribe(()=>{
-  console.log('New state', store.getState());
-});
+// store.subscribe(()=>{
+//   console.log('New state', store.getState());
+// });
 
 // store.dispatch(actions.addTodo('Walk'));
 // store.dispatch(actions.setSearchText('ssser'));
 // store.dispatch(actions.toggleShowCompleted());
+
+// var initialTodos = TodoApi.getTodos();
+// store.dispatch(avtions.addTodos(initialTodos));
+
+store.dispatch(actions.startAddTodos());
 
 // Load foundation
 $(document).foundation();

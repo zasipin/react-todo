@@ -24,6 +24,11 @@ export var todosReducer = (state = [], action) => {
                 ...state,
                 action.todo
             ];
+        case 'ADD_TODOS':
+            return [
+                ...state,
+                ...action.todos
+            ];    
         case 'UPDATE_TODO':
             return state.map(item => {
                 if(item.id === action.id)
