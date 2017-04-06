@@ -1,4 +1,4 @@
-import firebase, { firebaseRef } from 'app/firebase';
+import firebase, { firebaseRef, githubProvider } from 'app/firebase';
 import moment from 'moment';
 
 export function setSearchText(searchText) {
@@ -104,5 +104,26 @@ export function startAddTodos(){
             // console.log("todos: ", todos);
             dispatch(addTodos(todos));
         });
+    }
+}
+
+export function startLogin(){
+    return (dispatch, getState) => {
+        return firebase.auth().signInWithPopup(githubProvider)
+            .then((result)=>{
+                console.log('Auth wotker', result);
+            })
+            .catch((err)=>{
+                console.log('Auth err occured', err);
+            });
+    }
+}
+
+export function startLogout(){
+    return (dispatch, getState) => {
+        return firebase.auth().signOut()
+            .then(() => {
+                console.log('Signed out');
+            });
     }
 }

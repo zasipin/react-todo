@@ -5,7 +5,7 @@ var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 
 import TodoApp from 'TodoApp';
 import TodoApi from 'TodoApi';
-import {Login} from 'Login';
+import Login from 'Login';
 
 import * as actions from 'actions';
 import {configure} from 'configureStore';

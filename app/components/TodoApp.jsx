@@ -1,13 +1,16 @@
 import React from 'react';
-import uuid from 'node-uuid';
-import moment from 'moment';
+// import uuid from 'node-uuid';
+// import moment from 'moment';
+import * as Redux from 'react-redux';
+
+import * as actions from 'actions';
 
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
 import TodoSearch from 'TodoSearch';
 import TodoApi from 'TodoApi';
 
-export default class TodoApp extends React.Component{
+export class TodoApp extends React.Component{
   constructor(){
     super();
     // this.state = {
@@ -17,52 +20,19 @@ export default class TodoApp extends React.Component{
     // }
   }
 
-  // handleToggle(id){
-  //   var updatedTodos = this.state.todos.map((todo) => {
-  //     if(todo.id === id)
-  //     {
-  //       todo.completed = !todo.completed;
-  //       todo.completedAt = todo.completed ? moment().unix() : undefined;
-  //     }
-  //     return todo;
-  //   });
-
-  //   this.setState({todos: updatedTodos});
-  // }
-
-  // componentDidUpdate(){
-  //   // TodoApi.setTodos(this.state.todos);
-  // }
-
-  // handleAddTodo(text){
-  //   this.setState({
-  //     todos: [
-  //       ...this.state.todos,
-  //       {
-  //         id: uuid(),
-  //         text: text,
-  //         completed: false,
-  //         createdAt: moment().unix(),
-  //         completedAt: undefined
-  //       }
-  //     ]
-  //   });
-  // }
-
-  // handleSearch(showCompleted, searchText){
-  //   this.setState({
-  //     showCompleted: showCompleted,
-  //     searchText: searchText.toLowerCase()
-  //   })
-  // }
+  onLogout(e) {
+    var {dispatch} = this.props;
+    e.preventDefault();
+    
+    dispatch(actions.startLogout());
+  }
 
   render() {
-    // var {todos, showCompleted, searchText} = this.state;
-    // var filteredTodos = TodoApi.filterTodos(todos, showCompleted, searchText);
+
     return (
       <div>
         <div className="page-actions">
-          <a href="#">Logout</a>
+          <a href="#" onClick={(e) => {this.onLogout(e)}}>Logout</a>
         </div>
         
         <h1 className="page-title">Todo App</h1>
@@ -82,3 +52,5 @@ export default class TodoApp extends React.Component{
     );
   }
 }
+
+export default Redux.connect()(TodoApp);
