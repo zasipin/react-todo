@@ -19,7 +19,7 @@ describe('Reducers', () => {
     });
 
     describe('showCompletedReducer', () => {
-        it('should return oppsite meaning on action ToggleShowCompleted', () => {
+        it('should return opposite meaning on action ToggleShowCompleted', () => {
             var action = {
                 type: 'TOGGLE_SHOW_COMPLETED',
             }
@@ -99,4 +99,28 @@ describe('Reducers', () => {
 
     });
 
+    describe('authReducer', () => {
+        it('should return uid on action Login', () => {
+            var action = {
+                type: 'LOGIN',
+                uid: 'some uid'
+            }
+
+            var res = reducers.authReducer(df({}), df(action));
+
+            expect(res).toEqual({ uid: action.uid });
+        });
+    });
+
+    describe('authReducer', () => {
+        it('should return empty object on action Logout', () => {
+            var action = {
+                type: 'LOGOUT'
+            }
+
+            var res = reducers.authReducer(df({}), df(action));
+
+            expect(res).toEqual({});
+        });
+    });
 });

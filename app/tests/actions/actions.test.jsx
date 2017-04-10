@@ -75,11 +75,33 @@ describe('Actions', function(){
         expect(res).toEqual(action);
     });
 
+    it('should generate login action', () => {
+        var action = {
+            type: 'LOGIN',
+            uid: 123
+        }
+
+        var res = actions.login(action.uid);
+
+        expect(res).toEqual(action);
+    });
+
+    it('should generate logout action', () => {
+        var action = {
+            type: 'LOGOUT'
+        }
+
+        var res = actions.logout();
+
+        expect(res).toEqual(action);
+    });
+
     describe('Tests with firebase todos', () => {
         var testTodoRef;
 
         beforeEach((done) => {
             // insert data to firebase
+            firebaseRef.child('todos').set({});
             testTodoRef = firebaseRef.child('todos').push();
             testTodoRef.set({
                 text: 'Something to do',

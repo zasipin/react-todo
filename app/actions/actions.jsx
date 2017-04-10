@@ -127,3 +127,16 @@ export function startLogout(){
             });
     }
 }
+
+export function login(uid) {
+    return {
+        type: 'LOGIN',
+        uid
+    }
+}
+
+export function logout() {
+    return {
+        type: 'LOGOUT'
+    }
+}
