@@ -114,11 +114,15 @@ describe('Reducers', () => {
 
     describe('authReducer', () => {
         it('should return empty object on action Logout', () => {
+            const authData = {
+                uid: '123321'
+            };    
+
             var action = {
                 type: 'LOGOUT'
             }
 
-            var res = reducers.authReducer(df({}), df(action));
+            var res = reducers.authReducer(df(authData), df(action));
 
             expect(res).toEqual({});
         });
