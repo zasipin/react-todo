@@ -39,7 +39,9 @@ export var todosReducer = (state = [], action) => {
                       }
                 }
                 return item;
-            });    
+            });
+        case 'LOGOUT': 
+            return [];        
         default: return state; 
     }
 }

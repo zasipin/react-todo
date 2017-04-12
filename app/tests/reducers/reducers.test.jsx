@@ -97,6 +97,31 @@ describe('Reducers', () => {
 
         });
 
+        it('should wipe toggle todo data on LOGOUT', ()=>{
+            var todos = [
+            {
+                id: 1, //uuid(),
+                text: '1',
+                completed: false,
+                createdAt: 123, //moment().unix(),
+                completedAt: undefined
+            }, 
+            {
+                id: 2, //uuid(),
+                text: '123',
+                completed: true,
+                createdAt: 123,//moment().unix(),
+                completedAt: 123
+            }];
+            
+            var action = {
+                type: 'LOGOUT',
+            }
+            var res = reducers.todosReducer(df(todos), df(action));
+
+            expect(res.length).toEqual(0);
+        });
+
     });
 
     describe('authReducer', () => {
@@ -110,9 +135,7 @@ describe('Reducers', () => {
 
             expect(res).toEqual({ uid: action.uid });
         });
-    });
-
-    describe('authReducer', () => {
+    
         it('should return empty object on action Logout', () => {
             const authData = {
                 uid: '123321'
